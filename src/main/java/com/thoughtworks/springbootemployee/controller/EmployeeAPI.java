@@ -1,4 +1,5 @@
 package com.thoughtworks.springbootemployee.controller;
+
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +13,28 @@ public class EmployeeAPI {
     private List<Employee> employeeList = new ArrayList<Employee>();
 
     @GetMapping()
-    public List<Employee> getEmployees(@RequestParam(required = false) String gender) {
-        if(gender==null){
-            return employeeList;
+    public List<Employee> getEmployees(@RequestParam(required = false) String gender,
+                                       @RequestParam(required = false) Integer page,
+                                       @RequestParam(required = false) Integer pageSize) {
+        if (gender != null) {
+            return employeeList
+                    .stream()
+                    .filter(employee -> employee.getGender().equals(gender))
+                    .collect(Collectors.toList());
         }
-        return employeeList
-                .stream()
-                .filter(employee -> employee.getGender().equals(gender))
-                .collect(Collectors.toList());
+        if (page != null && pageSize != null) {
+            int firstIndex = page * pageSize - 1;
+            int lastIndex = (page + 1) * pageSize - 1;
+            return employeeList.subList(firstIndex, lastIndex);
+        }
+        return employeeList;
     }
 
     @GetMapping("/{employeeId}")
-    public Employee getEmployeeById(@PathVariable("employeeId") int employeeId){
+    public Employee getEmployeeById(@PathVariable("employeeId") int employeeId) {
         return employeeList
                 .stream()
-                .filter(employee -> employee.getId()==employeeId)
+                .filter(employee -> employee.getId() == employeeId)
                 .findFirst()
                 .orElse(null);
     }

@@ -15,38 +15,38 @@ public class CompanyAPI {
     @GetMapping()
     public List<Company> getEmployees(@RequestParam(required = false) Integer page,
                                       @RequestParam(required = false) Integer pageSize) {
-        if(page!=null){
-            int firstIndex = page*pageSize -1;
-            int lastIndex=  (page+1)*pageSize-1;
+        if (page != null && pageSize != null) {
+            int firstIndex = page * pageSize - 1;
+            int lastIndex = (page + 1) * pageSize - 1;
             return companyList.subList(firstIndex, lastIndex);
         }
         return companyList;
     }
 
     @GetMapping("/{companyId}")
-    public Company getCompanyById(@PathVariable("companyId") int companyId){
+    public Company getCompanyById(@PathVariable("companyId") int companyId) {
         return companyList
                 .stream()
-                .filter(company -> company.getId()==companyId)
+                .filter(company -> company.getId() == companyId)
                 .findFirst()
                 .orElse(null);
     }
 
     @GetMapping("/{companyId}/employees")
-    public List<Employee> getEmployeeByCompanyId(@PathVariable("companyId") int companyId){
-        Company targetCompany =  companyList
+    public List<Employee> getEmployeeByCompanyId(@PathVariable("companyId") int companyId) {
+        Company targetCompany = companyList
                 .stream()
-                .filter(company -> company.getId()==companyId)
+                .filter(company -> company.getId() == companyId)
                 .findFirst()
                 .orElse(null);
-        if(targetCompany==null){
+        if (targetCompany == null) {
             return null;
         }
         return targetCompany.getEmployees();
     }
 
     @PostMapping()
-    public Company addCompany(@RequestBody Company newCompany){
+    public Company addCompany(@RequestBody Company newCompany) {
         companyList.add(newCompany);
         return newCompany;
     }
