@@ -4,6 +4,16 @@ package com.thoughtworks.springbootemployee.model;
 import java.util.List;
 
 public class Company {
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String companyName;
     private int employeesNumber;
     private List<Employee> employees;
