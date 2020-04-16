@@ -2,6 +2,8 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.service.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,50 +14,40 @@ import java.util.List;
 public class CompanyController {
     private List<Company> companyList = new ArrayList<Company>();
 
+    private CompanyService companyService;
+
+    @Autowired
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
+    }
+
     @GetMapping()
-    public List<Company> getEmployees(@RequestParam(required = false) Integer page,
+    public List<Company> getCompanies(@RequestParam(required = false) Integer page,
                                       @RequestParam(required = false) Integer pageSize) {
         if (page != null && pageSize != null) {
-            int firstIndex = page * pageSize - 1;
-            int lastIndex = (page + 1) * pageSize - 1;
-            return companyList.subList(firstIndex, lastIndex);
+            return companyService.getCompaniesByPage(page, pageSize);
         }
-        return companyList;
+        return companyService.getAllCompanies();
     }
 
     @GetMapping("/{companyId}")
     public Company getCompanyById(@PathVariable("companyId") int companyId) {
-        return companyList
-                .stream()
-                .filter(company -> company.getId() == companyId)
-                .findFirst()
-                .orElse(null);
+        return companyService.getCompanyById(companyId);
     }
 
     @GetMapping("/{companyId}/employees")
     public List<Employee> getEmployeeByCompanyId(@PathVariable("companyId") int companyId) {
-        Company targetCompany = companyList
-                .stream()
-                .filter(company -> company.getId() == companyId)
-                .findFirst()
-                .orElse(null);
-        if (targetCompany == null) {
-            return null;
-        }
-        return targetCompany.getEmployees();
+        return companyService.getEmployeesByCompanyId(companyId);
     }
 
     @PostMapping()
     public Company addCompany(@RequestBody Company newCompany) {
-        companyList.add(newCompany);
-        return newCompany;
+        return companyService.addCompany(newCompany);
     }
 
     @PutMapping("/{companyId}")
     public Company updateEmployeeInfo(@PathVariable("companyId") int companyId, @RequestBody Company targetCompany) {
-        companyList.removeIf(employee -> employee.getId() == companyId);
-        companyList.add(targetCompany);
-        return targetCompany;
+        return companyService.updateEmployeeInfo(companyId, targetCompany);
     }
 
     @DeleteMapping("/{companyId}")
