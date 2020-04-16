@@ -7,10 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.thoughtworks.springbootemployee.EmployeeFactory.createTestEmployees;
+
 @RestController
 @RequestMapping("employees")
-public class EmployeeAPI {
+public class EmployeeController {
     private List<Employee> employeeList = new ArrayList<Employee>();
+
+    public EmployeeController(){
+        employeeList = createTestEmployees();
+    }
 
     @GetMapping()
     public List<Employee> getEmployees(@RequestParam(required = false) String gender,
