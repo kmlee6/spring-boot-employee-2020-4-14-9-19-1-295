@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("companies")
-public class CompanyAPI {
+public class CompanyController {
     private List<Company> companyList = new ArrayList<Company>();
 
     @GetMapping()
