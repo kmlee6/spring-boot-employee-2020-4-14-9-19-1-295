@@ -3,9 +3,21 @@ package com.thoughtworks.springbootemployee.model;
 public class Employee {
     private int id;
     private String name;
-    private String age;
+    private int age;
     private String gender;
     private int salary;
+
+    public Employee(){
+
+    }
+
+    public Employee(int id, String name, int age, String gender, int salary){
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+    }
 
     public int getId() {
         return id;
@@ -23,7 +35,7 @@ public class Employee {
         this.name = name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
@@ -35,7 +47,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
