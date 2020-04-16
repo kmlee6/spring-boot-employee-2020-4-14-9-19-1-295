@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("employees")
 public class EmployeeController {
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService) {
@@ -32,7 +32,7 @@ public class EmployeeController {
 
     @GetMapping("/{employeeId}")
     public Employee getEmployeeById(@PathVariable("employeeId") int employeeId) {
-        return employeeService.getEmployeesById(employeeId);
+        return employeeService.getEmployeeById(employeeId);
     }
 
     @PostMapping()
