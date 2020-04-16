@@ -51,4 +51,9 @@ public class CompanyRepository {
         companyList.add(targetCompany);
         return targetCompany;
     }
+
+    public void removeEmployee(int companyId) {
+        List<Company> companyList = createTestCompanies();
+        companyList.removeIf(company -> company.getId() == companyId);
+    }
 }

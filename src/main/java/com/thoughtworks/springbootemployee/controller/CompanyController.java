@@ -12,8 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("companies")
 public class CompanyController {
-    private List<Company> companyList = new ArrayList<Company>();
-
     private CompanyService companyService;
 
     @Autowired
@@ -52,6 +50,6 @@ public class CompanyController {
 
     @DeleteMapping("/{companyId}")
     public void removeEmployee(@PathVariable("companyId") int companyId) {
-        companyList.removeIf(company -> company.getId() == companyId);
+        companyService.removeEmployee(companyId);
     }
 }

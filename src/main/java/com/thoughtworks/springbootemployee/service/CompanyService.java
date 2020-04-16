@@ -42,4 +42,8 @@ public class CompanyService {
     public Company updateEmployeeInfo(int companyId, Company targetCompany) {
         return companyRepository.updateEmployeeInfo(companyId, targetCompany);
     }
+
+    public void removeEmployee(int companyId) {
+        companyRepository.removeEmployee(companyId);
+    }
 }
