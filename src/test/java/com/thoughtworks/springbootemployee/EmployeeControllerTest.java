@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.Type;
@@ -37,7 +38,7 @@ public class EmployeeControllerTest {
                 .when()
                 .get("/employees");
 
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>(){
             @Override
             public Type getType(){
@@ -54,7 +55,7 @@ public class EmployeeControllerTest {
                 .when()
                 .get("/employees");
 
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>(){
             @Override
             public Type getType(){
@@ -69,7 +70,7 @@ public class EmployeeControllerTest {
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .when()
                 .get("/employees/1");
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         Employee employee = response.getBody().as(Employee.class);
         Assert.assertEquals(1, employee.getId());
     }
@@ -82,11 +83,28 @@ public class EmployeeControllerTest {
                 .when()
                 .post("/employees");
 
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
     }
 
     @Test
     public void should_update_employee(){
+        Employee updatedEmployee = new Employee(1, "Tommy", 22, "Male", 50000);
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .body(updatedEmployee)
+                .when()
+                .put("/employees/1");
 
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Employee employee = response.getBody().as(Employee.class);
+        Assert.assertEquals("Tommy", employee.getName());
+    }
+
+    @Test
+    public void should_delete_employee(){
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .when()
+                .delete("/employees/1");
+
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
     }
 }
