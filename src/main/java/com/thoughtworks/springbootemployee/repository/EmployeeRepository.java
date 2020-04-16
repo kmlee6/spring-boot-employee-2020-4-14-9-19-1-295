@@ -10,6 +10,9 @@ import static com.thoughtworks.springbootemployee.EmployeeFactory.createTestEmpl
 
 @Repository
 public class EmployeeRepository {
+    public List<Employee> getAllEmployees() {
+        return createTestEmployees();
+    }
 
     public List<Employee> getEmployeesByGender(String gender) {
         return createTestEmployees()
@@ -28,10 +31,6 @@ public class EmployeeRepository {
                 .filter(employee -> employee.getId() == employeeId)
                 .findFirst()
                 .orElse(null);
-    }
-
-    public List<Employee> getAllEmployees() {
-        return createTestEmployees();
     }
 
     public Employee addEmployee(Employee newEmployee) {
