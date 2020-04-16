@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Company {
     private int id;
+    private String companyName;
+    private int employeesNumber;
+    private List<Employee> employees;
 
     public int getId() {
         return id;
@@ -13,10 +16,6 @@ public class Company {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String companyName;
-    private int employeesNumber;
-    private List<Employee> employees;
 
     public String getCompanyName() {
         return companyName;
