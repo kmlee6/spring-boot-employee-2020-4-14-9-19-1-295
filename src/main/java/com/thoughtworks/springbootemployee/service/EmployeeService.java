@@ -37,11 +37,13 @@ public class EmployeeService {
         return employeeRepository.save(newEmployee);
     }
 
-    public Employee updateEmployInfo(int employeeId, Employee targetEmployee) {
-        if(employeeRepository.findById(employeeId)==null){
+    public Employee updateEmployeeInfo(int employeeId, Employee targetEmployee) {
+        Employee oriEmployee = employeeRepository.findById(employeeId).orElse(null);
+        if(oriEmployee==null){
             return null;
         }
-        return employeeRepository.save(targetEmployee);
+        oriEmployee.updateEmployee(targetEmployee);
+        return employeeRepository.save(oriEmployee);
     }
 
     public void removeEmployee(int employeeId) {
