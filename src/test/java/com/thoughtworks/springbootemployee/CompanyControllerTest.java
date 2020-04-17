@@ -54,14 +54,14 @@ public class CompanyControllerTest {
                 .when()
                 .get("/companies?page=2&pageSize=1");
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        List<Company> company = response.getBody().as(new TypeRef<List<Company>>() {
+        List<Company> companies = response.getBody().as(new TypeRef<List<Company>>() {
             @Override
             public Type getType() {
                 return super.getType();
             }
         });
-        Assert.assertEquals(1, company.size());
-        Assert.assertEquals(2, company.get(0).getId());
+        Assert.assertEquals(1, companies.size());
+        Assert.assertEquals(2, companies.get(0).getId().longValue());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class CompanyControllerTest {
 
     @Test
     public void should_be_able_to_add_new_company() {
-        Company company = new Company(5, "ThoughWork", 3, createTestEmployees());
+        Company company = new Company(5, "ThoughWork", createTestEmployees());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(company)
                 .when()
@@ -102,7 +102,7 @@ public class CompanyControllerTest {
 
     @Test
     public void should_be_able_to_update_company() {
-        Company company = new Company(2, "ThoughWork", 3, createTestEmployees());
+        Company company = new Company(2, "ThoughWork", createTestEmployees());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(company)
                 .when()
