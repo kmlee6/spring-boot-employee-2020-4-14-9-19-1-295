@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,32 +18,33 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployees() {
-        return employeeRepository.getAllEmployees();
+        return employeeRepository.findAll();
     }
 
     public List<Employee> getEmployeesByGender(String gender) {
-        return employeeRepository.getEmployeesByGender(gender);
+        return employeeRepository.findAllByGender(gender);
     }
 
     public List<Employee> getEmployeesByPage(Integer page, Integer pageSize) {
-        int firstIndex = page * pageSize - 1;
-        int lastIndex = (page + 1) * pageSize - 1;
-        return employeeRepository.getEmployeesByIndex(firstIndex, lastIndex);
+        return employeeRepository.findAll(PageRequest.of(page, pageSize)).getContent();
     }
 
     public Employee getEmployeeById(int employeeId) {
-        return employeeRepository.getEmployeeById(employeeId);
+        return employeeRepository.findById(employeeId).orElse(null);
     }
 
     public Employee addEmployee(Employee newEmployee) {
-        return employeeRepository.addEmployee(newEmployee);
+        return employeeRepository.save(newEmployee);
     }
 
     public Employee updateEmployInfo(int employeeId, Employee targetEmployee) {
-        return employeeRepository.updateEmployInfo(employeeId, targetEmployee);
+        if(employeeRepository.findById(employeeId)==null){
+            return null;
+        }
+        return employeeRepository.save(targetEmployee);
     }
 
     public void removeEmployee(int employeeId) {
-        employeeRepository.removeEmployee(employeeId);
+        employeeRepository.deleteById(employeeId);
     }
 }

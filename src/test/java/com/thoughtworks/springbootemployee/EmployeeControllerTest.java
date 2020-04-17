@@ -72,12 +72,12 @@ public class EmployeeControllerTest {
                 .get("/employees/1");
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         Employee employee = response.getBody().as(Employee.class);
-        Assert.assertEquals(1, employee.getId());
+        Assert.assertEquals(1, employee.getId().longValue());
     }
 
     @Test
     public void should_add_employee(){
-        Employee employee = new Employee(5, "Haha", 13, "Male", 100000);
+        Employee employee = new Employee(5, "Haha", 13, "Male", 100000, 1);
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(employee)
                 .when()
@@ -88,7 +88,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_update_employee(){
-        Employee updatedEmployee = new Employee(1, "Tommy", 22, "Male", 50000);
+        Employee updatedEmployee = new Employee(1, "Tommy", 22, "Male", 50000, 1);
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(updatedEmployee)
                 .when()
