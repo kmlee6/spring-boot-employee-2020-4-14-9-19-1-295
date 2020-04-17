@@ -2,7 +2,6 @@ package com.thoughtworks.springbootemployee;
 
 import com.thoughtworks.springbootemployee.controller.EmployeeController;
 import com.thoughtworks.springbootemployee.model.Employee;
-import com.thoughtworks.springbootemployee.service.EmployeeService;
 import io.restassured.http.ContentType;
 import io.restassured.mapper.TypeRef;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -11,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -20,17 +18,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.thoughtworks.springbootemployee.EmployeeFactory.createTestEmployees;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmployeeControllerTest {
-
-//    @Mock
-//    private EmployeeService employeeService;
 
     @Autowired
     private EmployeeController employeeController;
@@ -42,7 +34,6 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_get_all_employees(){
-//        doReturn(createTestEmployees()).when(employeeService).getAllEmployees();
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .when()
                 .get("/employees");
@@ -59,7 +50,6 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_get_employees_by_gender(){
-//        doReturn(createTestEmployees()).when(employeeService).getEmployeesByGender(any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .params("gender", "Male")
                 .when()
