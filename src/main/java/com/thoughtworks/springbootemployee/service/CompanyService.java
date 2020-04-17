@@ -43,8 +43,12 @@ public class CompanyService {
     }
 
     public Company updateEmployeeInfo(int companyId, Company targetCompany) {
-
-        return companyRepository.save(targetCompany);
+        Company oriCompany = companyRepository.findById(companyId).orElse(null);
+        if(oriCompany==null){
+            return null;
+        }
+        oriCompany.updateCompany(targetCompany);
+        return companyRepository.save(oriCompany);
     }
 
     public void removeEmployee(int companyId) {
