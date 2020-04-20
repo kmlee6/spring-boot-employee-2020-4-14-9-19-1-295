@@ -26,11 +26,11 @@ public class CompanyService {
         return companyRepository.findAll(PageRequest.of(page, pageSize)).getContent();
     }
 
-    public Company getCompanyById(int companyId) {
+    public Company getCompanyById(Integer companyId) {
         return companyRepository.findById(companyId).orElse(null);
     }
 
-    public List<Employee> getEmployeesByCompanyId(int companyId) {
+    public List<Employee> getEmployeesByCompanyId(Integer companyId) {
         Company company = companyRepository.findById(companyId).orElse(null);
         if(company == null){
             return null;
