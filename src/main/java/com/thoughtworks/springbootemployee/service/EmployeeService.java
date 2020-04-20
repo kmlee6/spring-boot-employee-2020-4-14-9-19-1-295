@@ -29,7 +29,7 @@ public class EmployeeService {
         return employeeRepository.findAll(PageRequest.of(page, pageSize)).getContent();
     }
 
-    public Employee getEmployeeById(int employeeId) {
+    public Employee getEmployeeById(Integer employeeId) {
         return employeeRepository.findById(employeeId).orElse(null);
     }
 
@@ -37,7 +37,7 @@ public class EmployeeService {
         return employeeRepository.save(newEmployee);
     }
 
-    public Employee updateEmployeeInfo(int employeeId, Employee targetEmployee) {
+    public Employee updateEmployeeInfo(Integer employeeId, Employee targetEmployee) {
         Employee oriEmployee = employeeRepository.findById(employeeId).orElse(null);
         if(oriEmployee==null){
             return null;
