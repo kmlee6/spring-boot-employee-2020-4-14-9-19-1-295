@@ -37,13 +37,10 @@ public class EmployeeControllerTest {
         mockEmployeeService= Mockito.mock(EmployeeService.class);
         RestAssuredMockMvc.standaloneSetup(new EmployeeController(mockEmployeeService));
 
-        Employee employeeA = new Employee(1, "Tom", 18, "Male", 20000, 1);
-        Employee employeeB = new Employee(1, "Tim", 18, "Male", 20000, 1);
-        Employee employeeC = new Employee(1, "Tommy", 18, "Male", 20000, 1);
         dummyEmployees = new ArrayList<>();
-        dummyEmployees.add(employeeA);
-        dummyEmployees.add(employeeB);
-        dummyEmployees.add(employeeC);
+        dummyEmployees.add(new Employee(1, "Tom", 18, "Male", 20000, 1));
+        dummyEmployees.add(new Employee(1, "Tim", 18, "Male", 20000, 1));
+        dummyEmployees.add(new Employee(1, "Tommy", 18, "Male", 20000, 1));
     }
 
     @Test

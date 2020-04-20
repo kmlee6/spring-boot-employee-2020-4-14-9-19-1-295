@@ -1,8 +1,9 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.controller.CompanyController;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.service.CompanyService;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
 import io.restassured.http.ContentType;
 import io.restassured.mapper.TypeRef;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -11,10 +12,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -27,10 +30,14 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 public class CompanyControllerTest {
     @Autowired
     private CompanyController companyController;
+    private CompanyService mockCompanyService;
+    List<Company> dummyCompanies;
 
     @Before
     public void setUp() throws Exception {
-        RestAssuredMockMvc.standaloneSetup(companyController);
+        mockCompanyService= Mockito.mock(CompanyService.class);
+        RestAssuredMockMvc.standaloneSetup(new CompanyController(mockCompanyService));
+        dummyCompanies.add(new Company(1, ))
     }
 
     @Test
