@@ -3,7 +3,8 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:../testdb
+    driverClassName: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none

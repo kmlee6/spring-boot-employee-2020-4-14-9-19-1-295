@@ -1,6 +1,8 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.model.EmployeeRequest;
+import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -37,13 +39,13 @@ public class EmployeeService {
         return employeeRepository.save(newEmployee);
     }
 
-    public Employee updateEmployeeInfo(Integer employeeId, Employee targetEmployee) {
+    public EmployeeResponse updateEmployeeInfo(Integer employeeId, EmployeeRequest targetEmployee) {
         Employee oriEmployee = employeeRepository.findById(employeeId).orElse(null);
         if(oriEmployee==null){
             return null;
         }
-        oriEmployee.updateEmployee(targetEmployee);
-        return employeeRepository.save(oriEmployee);
+        oriEmployee.updateEmployee(employeeRequestToEmployee(targetEmployee));
+        return employeeToEmployeeResponse(employeeRepository.save(oriEmployee));
     }
 
     public void removeEmployee(int employeeId) {

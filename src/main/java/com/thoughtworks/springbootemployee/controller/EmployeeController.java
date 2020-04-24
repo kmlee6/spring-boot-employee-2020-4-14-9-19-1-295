@@ -1,6 +1,9 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.model.EmployeeRequest;
+import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +44,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{employeeId}")
-    public Employee updateEmployeeInfo(@PathVariable("employeeId") int employeeId, @RequestBody Employee targetEmployee) {
+    public EmployeeResponse updateEmployeeInfo(@PathVariable("employeeId") int employeeId, @RequestBody EmployeeRequest targetEmployee) {
         return employeeService.updateEmployeeInfo(employeeId, targetEmployee);
     }
 
